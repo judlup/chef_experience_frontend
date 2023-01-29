@@ -2,7 +2,7 @@ import AppRoutes from "../../routes/app/app.route"
 import NavbarContainer from "../general/navbar/navbar.container"
 import "./App.scss"
 
-function App() {
+const App = () => {
   return (
     <>
       <NavbarContainer />

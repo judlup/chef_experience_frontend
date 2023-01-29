@@ -12,25 +12,29 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material"
+import { ToastContainer } from "react-toastify"
+import "react-toastify/dist/ReactToastify.css"
 
 interface NavbarViewProps {
-  settings: string[]
+  isAuthenticated: string
   anchorElNav: null | HTMLElement
   anchorElUser: null | HTMLElement
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void
   handleCloseNavMenu: () => void
   handleCloseUserMenu: () => void
+  handleLogout: () => void
 }
 
 const NavbarView = ({
-  settings,
+  isAuthenticated,
   anchorElNav,
   anchorElUser,
   handleOpenNavMenu,
   handleOpenUserMenu,
   handleCloseNavMenu,
   handleCloseUserMenu,
+  handleLogout,
 }: NavbarViewProps) => {
   return (
     <>
@@ -110,11 +114,18 @@ const NavbarView = ({
             ></Box>
 
             <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Julian Luna" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
+              {isAuthenticated === "true" ? (
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar
+                      alt="Julian Luna"
+                      src="/static/images/avatar/2.jpg"
+                    />
+                  </IconButton>
+                </Tooltip>
+              ) : (
+                ""
+              )}
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
@@ -131,16 +142,17 @@ const NavbarView = ({
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >
-                {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">{setting}</Typography>
-                  </MenuItem>
-                ))}
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Typography textAlign="center" onClick={handleLogout}>
+                    Logout
+                  </Typography>
+                </MenuItem>
               </Menu>
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
+      <ToastContainer />
     </>
   )
 }
