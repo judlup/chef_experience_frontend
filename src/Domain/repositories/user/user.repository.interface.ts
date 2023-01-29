@@ -1,5 +1,11 @@
 import { LoginResponseInterface } from "../../responses/user/login/login.response"
+import { RegisterResponseInterface } from "../../responses/user/register/register.response"
 
 export interface UserRepositoryInterface {
   login(username: string, password: string): Promise<LoginResponseInterface>
+  register(
+    username: string,
+    password: string,
+    role: string
+  ): Promise<RegisterResponseInterface>
 }

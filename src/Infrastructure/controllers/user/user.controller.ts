@@ -1,6 +1,8 @@
 import LoginUseCase from "../../../Application/usecases/user/login.usecase"
+import RegisterUseCase from "../../../Application/usecases/user/register.usecase"
 import { UserControllerInterface } from "../../../Domain/controllers/user/user.controller.interface"
 import { LoginResponseInterface } from "../../../Domain/responses/user/login/login.response"
+import { RegisterResponseInterface } from "../../../Domain/responses/user/register/register.response"
 import UserRepository from "../../repositories/user/user.repository"
 import HttpClient from "../../utilities/http/http"
 
@@ -14,5 +16,14 @@ export default class UserController implements UserControllerInterface {
   ): Promise<LoginResponseInterface> {
     const loginUseCase = new LoginUseCase(this.userRepository)
     return await loginUseCase.execute(username, password)
+  }
+
+  async register(
+    username: string,
+    password: string,
+    role: string
+  ): Promise<RegisterResponseInterface> {
+    const registerUseCase = new RegisterUseCase(this.userRepository)
+    return await registerUseCase.execute(username, password, role)
   }
 }
