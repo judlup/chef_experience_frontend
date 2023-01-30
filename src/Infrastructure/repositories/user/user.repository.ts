@@ -3,8 +3,11 @@ import { GetChefsResponseInterface } from "../../../Domain/responses/user/chef/g
 import { LoginResponseInterface } from "../../../Domain/responses/user/login/login.response"
 import { RegisterResponseInterface } from "../../../Domain/responses/user/register/register.response"
 import HttpClient from "../../utilities/http/http"
+import { LocalStorage } from "../../utilities/localstorage/localstorage"
 export default class UserRepository implements UserRepositoryInterface {
   private apiUrl = `${process.env.REACT_APP_API_URL}/users`
+  localStorage = new LocalStorage()
+  token = localStorage.getItem("token") || ""
   constructor(private readonly httpClient: HttpClient) {}
   async login(
     username: string,
@@ -30,6 +33,8 @@ export default class UserRepository implements UserRepositoryInterface {
   }
 
   async getChefs(): Promise<GetChefsResponseInterface> {
+    let headers = this.httpClient.defaultHeaders
+    headers["Authorization"] = `Bearer ${this.token}`
     const response = await this.httpClient.get(`${this.apiUrl}/chefs`)
     return response.data
   }

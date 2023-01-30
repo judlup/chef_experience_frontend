@@ -1,11 +1,17 @@
 import { Avatar, Container, Grid } from "@mui/material"
+import { UserInterface } from "../../../../Domain/interfaces/user/user.interface"
 import styles from "./list.chefs.module.scss"
 
-const ListChefsView = () => {
+interface ListChefsViewProps {
+  chefs: UserInterface[] | undefined
+  handleSelectChef: (chef: UserInterface) => void
+}
+
+const ListChefsView = ({ chefs, handleSelectChef }: ListChefsViewProps) => {
   return (
     <>
       <Grid container spacing={2} minHeight={160} className={styles.chefList}>
-        <Grid xs={12} sx={{ m: 2 }}>
+        <Grid sx={{ m: 2 }}>
           <h3>Select a chef</h3>
         </Grid>
         <Container maxWidth="xl">
@@ -17,18 +23,16 @@ const ListChefsView = () => {
             container
             spacing={1}
           >
-            <Avatar
-              src="/static/images/avatar/1.jpg"
-              className={styles.chefPicture}
-              alt="Remy Sharp"
-              title="Remy Sharp"
-            />
-            <Avatar
-              src="/static/images/avatar/2.jpg"
-              className={styles.chefPicture}
-              alt="John Doe"
-              title="John Doe"
-            />
+            {chefs?.map((chef) => (
+              <Avatar
+                key={chef.id}
+                src="/static/images/avatar/1.jpg"
+                className={styles.chefPicture}
+                alt={chef.username}
+                title={chef.username}
+                onClick={() => handleSelectChef(chef)}
+              />
+            ))}
           </Grid>
         </Container>
       </Grid>

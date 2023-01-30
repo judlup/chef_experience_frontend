@@ -2,7 +2,7 @@ import axios from "axios"
 import { IHttp } from "../../../Domain/utilities/http/IHttp"
 
 export default class HttpClient implements IHttp {
-  public defaultHeaders = {
+  public defaultHeaders: any = {
     "Content-Type": "application/json",
     Accept: "application/json",
   }
