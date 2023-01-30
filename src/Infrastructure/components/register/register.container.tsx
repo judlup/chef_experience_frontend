@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { UserRoleEnum } from "../../../Domain/enums/user/user.enum"
 import UserController from "../../controllers/user/user.controller"
-import { LocalStorage } from "../../utilities/localstorage/localstorage"
 import { toastError, toastSuccess } from "../../utilities/toast/toast"
 import RegisterView from "./register.view.container"
 
@@ -26,8 +25,7 @@ const RegisterContainer = () => {
     event.preventDefault()
     const userController = new UserController()
     try {
-      const res = await userController.register(username, password, role)
-      const localStorage = new LocalStorage()
+      await userController.register(username, password, role)
       setUsername("")
       setPassword("")
       setConfirmPassword("")

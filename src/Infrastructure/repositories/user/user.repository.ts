@@ -1,4 +1,5 @@
 import { UserRepositoryInterface } from "../../../Domain/repositories/user/user.repository.interface"
+import { GetChefsResponseInterface } from "../../../Domain/responses/user/chef/getchefs.response"
 import { LoginResponseInterface } from "../../../Domain/responses/user/login/login.response"
 import { RegisterResponseInterface } from "../../../Domain/responses/user/register/register.response"
 import HttpClient from "../../utilities/http/http"
@@ -25,6 +26,11 @@ export default class UserRepository implements UserRepositoryInterface {
       password: password,
       role: role,
     })
+    return response.data
+  }
+
+  async getChefs(): Promise<GetChefsResponseInterface> {
+    const response = await this.httpClient.get(`${this.apiUrl}/chefs`)
     return response.data
   }
 }

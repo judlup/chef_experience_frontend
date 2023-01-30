@@ -16,6 +16,7 @@ const LoginContainer = () => {
     if (auth === "true") {
       navigate("/dashboard")
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {

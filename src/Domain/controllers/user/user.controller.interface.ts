@@ -1,3 +1,4 @@
+import { GetChefsResponseInterface } from "../../responses/user/chef/getchefs.response"
 import { LoginResponseInterface } from "../../responses/user/login/login.response"
 import { RegisterResponseInterface } from "../../responses/user/register/register.response"
 
@@ -8,4 +9,5 @@ export interface UserControllerInterface {
     password: string,
     role: string
   ): Promise<RegisterResponseInterface>
+  getChefs(): Promise<GetChefsResponseInterface>
 }
