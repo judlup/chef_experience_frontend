@@ -3,6 +3,7 @@ import { useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import { LocalStorage } from "../../utilities/localstorage/localstorage"
 import ListChefsContainer from "../chefs/list/list.chefs.container"
+import ListMealsContainer from "../meals/list/list.meals.container"
 
 const DashboardContainer = () => {
   const navigate = useNavigate()
@@ -20,6 +21,9 @@ const DashboardContainer = () => {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <ListChefsContainer />
+          </Grid>
+          <Grid item xs={12}>
+            <ListMealsContainer />
           </Grid>
         </Grid>
       </Container>
