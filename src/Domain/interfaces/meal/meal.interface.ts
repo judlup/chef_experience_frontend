@@ -1,4 +1,5 @@
 import { RatingInterface } from "../rating/rating.interface"
+import { UserInterface } from "../user/user.interface"
 
 export interface MealInterface {
   id: string
@@ -8,6 +9,7 @@ export interface MealInterface {
   image: string
   ratings?: RatingInterface[]
   average?: number
+  user?: UserInterface
   createdAt: Date
   updatedAt: Date
 }

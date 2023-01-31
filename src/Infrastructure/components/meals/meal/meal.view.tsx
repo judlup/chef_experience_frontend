@@ -7,7 +7,7 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material"
-import { red } from "@mui/material/colors"
+import { blue } from "@mui/material/colors"
 import { Rating } from "react-simple-star-rating"
 import { MealInterface } from "../../../../Domain/interfaces/meal/meal.interface"
 
@@ -22,12 +22,15 @@ const MealView = ({ meal, handleRating }: MealViewProps) => {
       <Card sx={{ maxWidth: 345, mr: 2, mb: 2, mt: 3 }} key={meal.id}>
         <CardHeader
           avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
+            <Avatar
+              sx={{ bgcolor: blue[500] }}
+              aria-label={meal.user?.username}
+              src="/static/images/avatar/1.jpg"
+              alt={meal.user?.username}
+            ></Avatar>
           }
           title={meal.name}
-          subheader={`$ ${meal.price}`}
+          subheader={meal.user?.username}
         />
         <CardMedia
           component="img"
@@ -43,6 +46,9 @@ const MealView = ({ meal, handleRating }: MealViewProps) => {
         <CardActions disableSpacing>
           <Rating onClick={handleRating} initialValue={meal.average} /> (
           {meal.ratings?.length})
+          <Typography
+            sx={{ position: "relative", left: "4vw", fontWeight: "bold" }}
+          >{`$ ${meal.price}`}</Typography>
         </CardActions>
       </Card>
     </>
