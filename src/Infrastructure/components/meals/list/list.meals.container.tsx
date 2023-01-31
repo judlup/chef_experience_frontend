@@ -6,10 +6,9 @@ import ListMealsView from "./list.meals.view"
 const ListMealsContainer = () => {
   const mealController = new MealController()
   const [meals, setMeals] = useState<MealInterface[]>()
-
+  let refresh = false
   const getMeals = async () => {
     const meals = await (await mealController.getMeals()).data
-    console.log(meals, "meals")
     setMeals(meals)
   }
 
@@ -17,9 +16,6 @@ const ListMealsContainer = () => {
     getMeals()
   }, [])
 
-  // const handleSelectedChed = (chef: UserInterface) => {
-  //   console.log(chef)
-  // }
   return (
     <>
       <ListMealsView meals={meals} />

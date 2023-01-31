@@ -29,6 +29,8 @@ const LoginContainer = () => {
       setPassword("")
       localStorage.set("token", res.data.token)
       localStorage.set("auth", "true")
+      const userInfo = await userController.getUser(res.data.id)
+      localStorage.set("user", JSON.stringify(userInfo.data))
       toastSuccess("Login success")
       navigate("/dashboard")
     } catch (err) {

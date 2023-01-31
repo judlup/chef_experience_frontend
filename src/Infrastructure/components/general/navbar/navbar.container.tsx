@@ -35,6 +35,8 @@ const NavbarContainer = () => {
 
   const handleLogout = () => {
     localStorage.remove("auth")
+    localStorage.remove("user")
+    localStorage.remove("token")
     toastInfo("Logout success")
     navigate("/login")
   }

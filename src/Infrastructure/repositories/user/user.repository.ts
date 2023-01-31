@@ -1,5 +1,6 @@
 import { UserRepositoryInterface } from "../../../Domain/repositories/user/user.repository.interface"
 import { GetChefsResponseInterface } from "../../../Domain/responses/user/chef/getchefs.response"
+import { GetUserResponseInterface } from "../../../Domain/responses/user/getuser.response"
 import { LoginResponseInterface } from "../../../Domain/responses/user/login/login.response"
 import { RegisterResponseInterface } from "../../../Domain/responses/user/register/register.response"
 import HttpClient from "../../utilities/http/http"
@@ -36,6 +37,13 @@ export default class UserRepository implements UserRepositoryInterface {
     let headers = this.httpClient.defaultHeaders
     headers["Authorization"] = `Bearer ${this.token}`
     const response = await this.httpClient.get(`${this.apiUrl}/chefs`)
+    return response.data
+  }
+
+  async getUser(id: string): Promise<GetUserResponseInterface> {
+    let headers = this.httpClient.defaultHeaders
+    headers["Authorization"] = `Bearer ${this.token}`
+    const response = await this.httpClient.get(`${this.apiUrl}/${id}`)
     return response.data
   }
 }
