@@ -1,5 +1,5 @@
 import AddIcon from "@mui/icons-material/Add"
-import { Button, Grid, Modal } from "@mui/material"
+import { Alert, Button, Grid, Modal } from "@mui/material"
 import { useState } from "react"
 import { UserRoleEnum } from "../../../../Domain/enums/user/user.enum"
 import { MealInterface } from "../../../../Domain/interfaces/meal/meal.interface"
@@ -8,7 +8,7 @@ import AddMealContainer from "../add/addMeal.container"
 import MealContainer from "../meal/meal.container"
 
 interface ListMealsViewProps {
-  meals: MealInterface[] | undefined
+  meals: MealInterface[]
 }
 
 const ListMealsView = ({ meals }: ListMealsViewProps) => {
@@ -37,11 +37,19 @@ const ListMealsView = ({ meals }: ListMealsViewProps) => {
           <AddMealContainer handleClose={handleClose} />
         </>
       </Modal>
-      <Grid container>
-        {meals?.map((meal) => (
-          <MealContainer key={meal.id} meal={meal} />
-        ))}
-      </Grid>
+      {meals?.length > 0 ? (
+        <Grid container>
+          {meals?.map((meal) => (
+            <MealContainer key={meal.id} meal={meal} />
+          ))}
+        </Grid>
+      ) : (
+        <>
+          <Alert severity="info" sx={{ mt: 2 }}>
+            No meals added yet{" "}
+          </Alert>
+        </>
+      )}
     </>
   )
 }

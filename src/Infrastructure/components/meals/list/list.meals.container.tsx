@@ -1,4 +1,3 @@
-import Alert from "@mui/material/Alert"
 import { useEffect } from "react"
 import { UserRoleEnum } from "../../../../Domain/enums/user/user.enum"
 import MealController from "../../../controllers/meal/meal.controller"
@@ -44,13 +43,7 @@ const ListMealsContainer = () => {
 
   return (
     <>
-      {mealStore.meals.length > 0 ? (
-        <ListMealsView meals={mealStore.meals} />
-      ) : (
-        <>
-          <Alert severity="info">No meals added yet </Alert>
-        </>
-      )}
+      <ListMealsView meals={mealStore.meals} />
     </>
   )
 }
