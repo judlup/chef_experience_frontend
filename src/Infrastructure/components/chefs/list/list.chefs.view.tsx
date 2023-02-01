@@ -5,6 +5,7 @@ import styles from "./list.chefs.module.scss"
 
 interface ListChefsViewProps {
   chefs: UserInterface[] | undefined
+  userRol: string | null
   handleSelectChef: (chef: UserInterface) => void
   clearChef: () => void
 }
@@ -13,6 +14,7 @@ const ListChefsView = ({
   chefs,
   handleSelectChef,
   clearChef,
+  userRol,
 }: ListChefsViewProps) => {
   return (
     <>
