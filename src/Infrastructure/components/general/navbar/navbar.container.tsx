@@ -13,6 +13,9 @@ const NavbarContainer = () => {
   const localStorage = new LocalStorage()
   const navigate = useNavigate()
   const [isAuth, setIsAuth] = React.useState("false")
+  const userInfo = localStorage.get("user")
+    ? JSON.parse(localStorage.get("user"))
+    : []
 
   useEffect(() => {
     setIsAuth(localStorage.get("auth") || "false")
@@ -44,6 +47,7 @@ const NavbarContainer = () => {
   return (
     <>
       <NavbarView
+        userInfo={userInfo}
         isAuthenticated={isAuth}
         anchorElNav={anchorElNav}
         anchorElUser={anchorElUser}

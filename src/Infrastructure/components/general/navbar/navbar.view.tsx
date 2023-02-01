@@ -12,13 +12,16 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material"
+import { blue } from "@mui/material/colors"
 import { ToastContainer } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+import { UserInterface } from "../../../../Domain/interfaces/user/user.interface"
 
 interface NavbarViewProps {
   isAuthenticated: string
   anchorElNav: null | HTMLElement
   anchorElUser: null | HTMLElement
+  userInfo: UserInterface | undefined
   handleOpenNavMenu: (event: React.MouseEvent<HTMLElement>) => void
   handleOpenUserMenu: (event: React.MouseEvent<HTMLElement>) => void
   handleCloseNavMenu: () => void
@@ -30,6 +33,7 @@ const NavbarView = ({
   isAuthenticated,
   anchorElNav,
   anchorElUser,
+  userInfo,
   handleOpenNavMenu,
   handleOpenUserMenu,
   handleCloseNavMenu,
@@ -117,8 +121,12 @@ const NavbarView = ({
               {isAuthenticated === "true" ? (
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Typography sx={{ fontSize: 13, mr: 1, color: "#ffffff" }}>
+                      {userInfo?.username}
+                    </Typography>
                     <Avatar
-                      alt="Julian Luna"
+                      sx={{ bgcolor: blue[400] }}
+                      alt={userInfo?.username}
                       src="/static/images/avatar/2.jpg"
                     />
                   </IconButton>
