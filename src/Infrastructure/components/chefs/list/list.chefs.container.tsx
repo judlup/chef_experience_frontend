@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { UserRoleEnum } from "../../../../Domain/enums/user/user.enum"
 import { UserInterface } from "../../../../Domain/interfaces/user/user.interface"
 import UserController from "../../../controllers/user/user.controller"
 import { LocalStorage } from "../../../utilities/localstorage/localstorage"
@@ -8,7 +9,9 @@ import ListChefsView from "./list.chefs.view"
 const ListChefsContainer = () => {
   const userController = new UserController()
   const localStorage = new LocalStorage()
-  const userRol = JSON.parse(localStorage.get("user")).role || null
+  const userRol = localStorage.get("user")
+    ? JSON.parse(localStorage.get("user")).role
+    : null
   const mealStore = UseMealStore((state: any) => state)
   const [chefs, setChefs] = useState<UserInterface[]>()
 
@@ -33,9 +36,8 @@ const ListChefsContainer = () => {
 
   return (
     <>
-      {userRol === "admin" || userRol === "user" ? (
+      {userRol === UserRoleEnum.ADMIN || userRol === UserRoleEnum.USER ? (
         <ListChefsView
-          userRol={userRol}
           chefs={chefs}
           handleSelectChef={handleSelectedChed}
           clearChef={clearChef}

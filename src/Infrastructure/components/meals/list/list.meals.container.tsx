@@ -1,14 +1,26 @@
+import Alert from "@mui/material/Alert"
 import { useEffect } from "react"
+import { UserRoleEnum } from "../../../../Domain/enums/user/user.enum"
 import MealController from "../../../controllers/meal/meal.controller"
+import { LocalStorage } from "../../../utilities/localstorage/localstorage"
 import { UseMealStore } from "../../../zustand/meal/meal.store"
 import ListMealsView from "./list.meals.view"
 
 const ListMealsContainer = () => {
   const mealController = new MealController()
   const mealStore = UseMealStore((state: any) => state)
+  const localStorage = new LocalStorage()
+  const user = localStorage.get("user")
+    ? JSON.parse(localStorage.get("user"))
+    : null
+
   const getMeals = async () => {
     let meals
-    if (mealStore.chef === null) {
+
+    if (user.role === UserRoleEnum.CHEF) {
+      meals = await (await mealController.getMealsByChef(user.id)).data
+      mealStore.setMeals(meals)
+    } else if (mealStore.chef === null) {
       meals = await (await mealController.getMeals()).data
       mealStore.setMeals(meals)
     } else {
@@ -32,7 +44,13 @@ const ListMealsContainer = () => {
 
   return (
     <>
-      <ListMealsView meals={mealStore.meals} />
+      {mealStore.meals.length > 0 ? (
+        <ListMealsView meals={mealStore.meals} />
+      ) : (
+        <>
+          <Alert severity="info">No meals added yet </Alert>
+        </>
+      )}
     </>
   )
 }
